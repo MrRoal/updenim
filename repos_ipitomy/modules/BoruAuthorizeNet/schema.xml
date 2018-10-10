@@ -1,0 +1,92 @@
+<?xml version='1.0'?>
+<schema>
+	<tables>
+		<table>
+			<name>boru_authorize_settings</name>
+			<sql><![CDATA[
+				CREATE TABLE `boru_authorize_settings` (
+				  `id` int(19) NOT NULL AUTO_INCREMENT,
+				  `item` varchar(100) DEFAULT NULL,
+				  `value` text,
+				  PRIMARY KEY (`id`)
+				) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1
+			]]></sql>
+		</table>
+		<table>
+			<name>boru_authorize_settings</name>
+			<sql><![CDATA[
+				ALTER TABLE `boru_authorize_settings` CHANGE `value` `value` TEXT CHARSET latin1 COLLATE latin1_swedish_ci NULL
+			]]></sql>
+		</table>
+		<table>
+			<name>boru_authorizenet_history</name>
+			<sql><![CDATA[
+				 CREATE TABLE `boru_authorizenet_history` ( `recordid` int(19) NOT NULL, `recurring` varchar(15) NOT NULL, `frequency` varchar(20) NOT NULL, `startdate` date default NULL, `method` varchar(12) NOT NULL ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+			]]></sql>
+		</table>
+		<table>
+			<name>boru_authorize_pretransactions</name>
+			<sql><![CDATA[
+				CREATE TABLE `boru_authorize_pretransactions` ( `id` bigint(19) NOT NULL auto_increment, `salesorderid` bigint(19) NOT NULL default '0', `invoiceid` bigint(19) NOT NULL default '0', `when` date NOT NULL, `expected_amount` decimal(15,2) default NULL, `received` enum('no','yes') NOT NULL default 'no', PRIMARY KEY (`id`) ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8
+			]]></sql>
+		</table>
+		<table>
+			<name>boru_authorize_transactions</name>
+			<sql><![CDATA[
+				CREATE TABLE `boru_authorize_transactions` (
+				  `id` bigint(19) NOT NULL auto_increment,
+				  `timestamp` datetime default NULL,
+				  `x_response_code` int(3) default NULL,
+				  `x_response_reason_code` varchar(100) default NULL,
+				  `x_response_reason_text` text,
+				  `x_auth_code` varchar(10) default NULL,
+				  `x_avs_code` varchar(20) default NULL,
+				  `x_trans_id` varchar(100) default NULL,
+				  `x_invoice_id` varchar(100) default NULL,
+				  `x_invoice_num` varchar(20) default NULL,
+				  `x_description` varchar(255) default NULL,
+				  `x_amount` decimal(15,2) default NULL,
+				  `x_method` varchar(20) default NULL,
+				  `x_type` varchar(100) default NULL,
+				  `x_account_number` varchar(30) default NULL,
+				  `x_card_type` varchar(50) default NULL,
+				  `x_split_tender_id` varchar(100) default NULL,
+				  `x_prepaid_balance_on_card` decimal(15,2) default NULL,
+				  `x_cust_id` varchar(20) default NULL,
+				  `x_first_name` varchar(50) default NULL,
+				  `x_last_name` varchar(50) default NULL,
+				  `x_company` varchar(50) default NULL,
+				  `x_address` varchar(60) default NULL,
+				  `x_city` varchar(40) default NULL,
+				  `x_state` varchar(40) default NULL,
+				  `x_zip` varchar(20) default NULL,
+				  `x_country` varchar(60) default NULL,
+				  `x_phone` varchar(25) default NULL,
+				  `x_fax` varchar(25) default NULL,
+				  `x_email` varchar(255) default NULL,
+				  `x_ship_to_first_name` varchar(50) default NULL,
+				  `x_ship_to_last_name` varchar(50) default NULL,
+				  `x_ship_to_company` varchar(60) default NULL,
+				  `x_ship_to_address` varchar(60) default NULL,
+				  `x_ship_to_city` varchar(40) default NULL,
+				  `x_ship_to_state` varchar(40) default NULL,
+				  `x_ship_to_zip` varchar(20) default NULL,
+				  `x_ship_to_country` varchar(60) default NULL,
+				  `x_tax` decimal(15,2) default NULL,
+				  `x_duty` decimal(15,2) default NULL,
+				  `x_freight` decimal(15,2) default NULL,
+				  `x_tax_exempt` varchar(10) default NULL,
+				  `x_po_num` varchar(25) default NULL,
+				  `x_MD5_Hash` varchar(64) default NULL,
+				  `x_cvv2_resp_code` varchar(10) default NULL,
+				  `x_cavv_response` varchar(10) default NULL,
+				  `x_response_code_text` text,
+				  `x_response_reason_code_text` text,
+				  `settled` varchar(100) default 'no',
+				  PRIMARY KEY  (`id`),
+				  KEY `settled` (`settled`)
+				) ENGINE=InnoDB DEFAULT CHARSET=latin1
+			]]></sql>
+		</table>
+	</tables>
+</schema>

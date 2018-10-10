@@ -1,0 +1,177 @@
+<?xml version='1.0'?>
+<schema>
+	<tables>
+		<table>
+			<name>vtiger_users</name>
+			<sql><![CDATA[ALTER TABLE `vtiger_users` ADD `items_per_page`  INT( 3 ) NOT NULL DEFAULT 25]]></sql>
+		</table>
+		<table>
+			<name>vtiger_vtcall_config</name>
+			<sql><![CDATA[CREATE TABLE `vtiger_vtcall_config` (
+  `gm_module` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `gm_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `gm_value` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`gm_module`,`gm_value`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8]]></sql>
+		</table>
+		<table>
+			<name>vtiger_vtcall_types</name>
+			<sql><![CDATA[CREATE TABLE `vtiger_vtcall_types` (
+  `vtid` int(11) NOT NULL AUTO_INCREMENT,
+  `typeid` varchar(50) NOT NULL,
+  `userid` INT(11) NOT NULL,
+  PRIMARY KEY (`vtid`)
+) ENGINE=MyISAM AUTO_INCREMENT=225 DEFAULT CHARSET=latin1]]></sql>
+		</table>
+		<table>
+			<name>vtiger_vtcall_types</name>
+			<sql><![CDATA[INSERT INTO vtiger_vtcall_types
+SELECT '', '1'
+FROM DUAL WHERE NOT EXISTS 
+(SELECT * FROM vtiger_vtcall_types WHERE typeid = '1');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_vtcall_types</name>
+			<sql><![CDATA[INSERT INTO vtiger_vtcall_types
+SELECT '', '2'
+FROM DUAL WHERE NOT EXISTS 
+(SELECT * FROM vtiger_vtcall_types WHERE typeid = '2');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_vtcall_types</name>
+			<sql><![CDATA[INSERT INTO vtiger_vtcall_types
+SELECT '', 'task'
+FROM DUAL WHERE NOT EXISTS 
+(SELECT * FROM vtiger_vtcall_types WHERE typeid = 'task');]]></sql>
+		</table>
+		<table>
+			<name>vtcall_config</name>
+			<sql><![CDATA[CREATE TABLE `vtcall_config` (`postpone_calls`  int(5) NULL DEFAULT 0 );]]></sql>
+		</table>
+		<table>
+			<name>vtcall_config</name>
+			<sql><![CDATA[INSERT INTO vtcall_config
+SELECT 1
+FROM DUAL WHERE NOT EXISTS 
+(SELECT * FROM vtcall_config WHERE postpone_calls = 1);]]></sql>
+		</table>
+		<table>
+			<name>vtcall_config</name>
+			<sql><![CDATA[ALTER TABLE `vtcall_config`
+		ADD COLUMN `flw_hour`  int(5) NULL ,
+		ADD COLUMN `flw_min`  int(5) NULL ,
+		ADD COLUMN `flw_fmt`  varchar(5) ;]]></sql>
+		</table>
+		<table>
+			<name>vtcall_user_config</name>
+			<sql><![CDATA[CREATE TABLE `vtcall_user_config` (
+`userid`  int(11) NOT NULL DEFAULT 0 ,
+`usertype`  varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+PRIMARY KEY (`userid`)
+);]]></sql>
+		</table>
+		<table>
+			<name>vtiger_vtcall_config</name>
+			<sql><![CDATA[
+        INSERT INTO `vtiger_vtcall_config` (`gm_module`, `gm_name`, `gm_value`) VALUES
+		('Accounts', 'fields_display','accountname'),
+		('Accounts', 'fields_display','phone'),
+		('Accounts', 'fields_display','email1'),
+		('Accounts', 'fields_display','website'),
+		('Accounts', 'fields_display','bill_city'),
+		('Accounts', 'fields_display','bill_state'),
+		('Contacts', 'fields_display','firstname'),
+		('Contacts', 'fields_display','lastname'),
+		('Contacts', 'fields_display','phone'),
+		('Contacts', 'fields_display','mobile'),
+		('Contacts', 'fields_display','email'),
+		('Contacts', 'fields_display','account_id'),		
+		('Leads', 'fields_display','firstname'),
+		('Leads', 'fields_display','lastname'),
+		('Leads', 'fields_display','phone'),
+		('Leads', 'fields_display','mobile'),
+		('Leads', 'fields_display','email'),
+		('Leads', 'fields_display','company'),
+		('Potentials', 'fields_display','potentialname'),
+		('Potentials', 'fields_display','amount'),
+		('Potentials', 'fields_display','related_to'),
+		('Potentials', 'fields_display','opportunity_type'),
+		('Potentials', 'fields_display','sales_stage'),
+		('Potentials', 'fields_display','leadsource')
+		]]></sql>
+		</table>
+		<table>
+			<name>vtcall_radio_filter</name>
+			<sql><![CDATA[CREATE TABLE `vtcall_radio_filter` (
+		`filter_name`  varchar(50) NULL ,
+		`value`  varchar(10) NULL ,
+		PRIMARY KEY (`filter_name`)
+		);]]></sql>
+		</table>
+		<table>
+			<name>vtcall_config</name>
+			<sql><![CDATA[ALTER TABLE `vtcall_config`
+		ADD COLUMN `related_opportunities`  int(5) NULL ,
+		ADD COLUMN `related_quotes`  int(5) NULL ,
+		ADD COLUMN `related_wos`  int(5) NULL;]]></sql>
+		</table>
+		<table>
+			<name>vtcall_related_field</name>
+			<sql><![CDATA[CREATE TABLE `vtcall_related_field` (
+		`id`  int(5) NULL AUTO_INCREMENT ,
+		`related_name`  varchar(50) NULL ,
+		`ordering`  int(5) NULL ,
+		`fieldid`  int(10) NULL ,
+		PRIMARY KEY (`id`)
+		);]]></sql>
+		</table>
+		<table>
+			<name>vtcall_config</name>
+			<sql><![CDATA[ALTER TABLE `vtcall_config`
+		ADD COLUMN `custom_fields`  int(5);]]></sql>
+		</table>
+		<table>
+			<name>vtcall_config</name>
+			<sql><![CDATA[ALTER TABLE `vtcall_config`
+			ADD COLUMN `default_filter`  varchar(50) NULL ,
+			ADD COLUMN `default_user`  varchar(10) NULL ;]]></sql>
+		</table>
+		<table>
+			<name>vtcall_shading_condition</name>
+			<sql><![CDATA[CREATE TABLE `vtcall_shading_condition` (
+		`id`  int(11) NULL AUTO_INCREMENT ,
+		`field`  varchar(50) NULL ,
+		`comparator`  varchar(50) NULL ,
+		`days`  varchar(10) NULL ,
+		`line_color`  varchar(50) NULL ,
+		PRIMARY KEY (`id`)
+		)
+		;]]></sql>
+		</table>
+		<table>
+			<name>vtcall_shading_condition</name>
+			<sql><![CDATA[ALTER TABLE `vtcall_shading_condition`
+		MODIFY COLUMN `days`  int(10) NULL DEFAULT NULL;]]></sql>
+		</table>
+		<table>
+			<name>vtcall_selected_recordtype</name>
+			<sql><![CDATA[CREATE TABLE `vtcall_selected_recordtype` (
+		`module`  varchar(50) NULL ,
+		`userid`  int(11) NULL ,
+		`selected`  int(5) NULL ,
+		PRIMARY KEY (`module`, `userid`)
+		);]]></sql>
+		</table>
+		<table>
+			<name>vtcall_selected_recordtype</name>
+			<sql><![CDATA[ALTER TABLE `vtcall_selected_recordtype`
+MODIFY COLUMN `module`  varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' FIRST ;]]></sql>
+		</table>
+		<table>
+			<name>vtiger_vtcall_config</name>
+			<sql><![CDATA[ALTER TABLE `vtiger_vtcall_config`
+DROP PRIMARY KEY,
+ADD PRIMARY KEY (`gm_module`, `gm_value`, `gm_name`);]]></sql>
+		</table>
+	</tables>
+</schema>

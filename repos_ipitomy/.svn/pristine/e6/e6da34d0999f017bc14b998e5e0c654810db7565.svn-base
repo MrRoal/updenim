@@ -1,0 +1,28 @@
+.dvInnerHeader2{
+	border-top:1px solid #dedede;
+	border-left:1px solid #dedede;
+	border-right:1px solid #dedede;
+	border-bottom:1px solid #dedede;
+	padding:8px;
+	background:#FFCC00  ; 	
+	color:#000000;
+}
+.dvInnerHeader3{
+	border-top:1px solid #dedede;
+	border-left:1px solid #dedede;
+	border-right:1px solid #dedede;
+	border-bottom:1px solid #dedede;
+	padding:8px;
+	background: #3399FF ; 	
+	color:#000000;
+}
+
+.dvInnerHeader4{
+	border-top:1px solid #dedede;
+	border-left:1px solid #dedede;
+	border-right:1px solid #dedede;
+	border-bottom:1px solid #dedede;
+	padding:8px;
+	background: #3333FF; 	
+	color:#ffffff;
+}

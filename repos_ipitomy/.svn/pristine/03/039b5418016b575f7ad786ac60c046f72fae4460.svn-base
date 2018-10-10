@@ -1,0 +1,31 @@
+<?xml version='1.0'?>
+<schema>
+	<tables>
+		<table>
+			<name>geocodes</name>
+			<sql><![CDATA[CREATE TABLE `geocodes` (
+			  `address` varchar(255) CHARACTER SET latin1 NOT NULL DEFAULT '',
+			  `lng` float DEFAULT NULL,
+			  `lat` float DEFAULT NULL,
+			  `other_lng` float DEFAULT NULL,
+			  `other_lat` float DEFAULT NULL,
+			  PRIMARY KEY (`address`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;]]></sql>
+		</table>
+		<table>
+			<name>vtiger_googlemap_config</name>
+			<sql><![CDATA[CREATE TABLE vtiger_googlemap_config (
+  gm_id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  gm_module varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  gm_name varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  gm_value varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (gm_id)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;]]></sql>
+		</table>
+		<table>
+			<name>vtiger_googlemap_config</name>
+			<sql><![CDATA[ALTER TABLE `vtiger_googlemap_config`
+MODIFY COLUMN `gm_value`  text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL;]]></sql>
+		</table>
+	</tables>
+</schema>

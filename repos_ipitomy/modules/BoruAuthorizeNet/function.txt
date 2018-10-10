@@ -1,0 +1,40 @@
+class [[REPLACEME]] extends CRMEntity {
+	function get_authorize_transactions($id, $cur_tab_id, $rel_tab_id, $actions=false){
+		global $currentModule, $app_strings, $singlepane_view, $adb;
+
+		$parenttab = getParentTab();
+
+		$related_module = vtlib_getModuleNameById($rel_tab_id);
+		$other = CRMEntity::getInstance($related_module);
+		
+		// Some standard module class doesn't have required variables
+		// that are used in the query, they are defined in this generic API
+		vtlib_setup_modulevars($currentModule, $this);
+		vtlib_setup_modulevars($related_module, $other);
+
+		$button = '';
+
+		$return_value = Array();
+		$return_value['header'] = array('Date', 'Time','x_response_code','x_auth_code', 'x_trans_id', 'x_amount');
+		$return_value['CUSTOM_BUTTON'] = $button;
+		$return_value['entries']=array();
+		
+		if(file_exists("modules/BoruAuthorizeNet/class_authorize.php")) {
+			require_once("modules/BoruAuthorizeNet/class_authorize.php");
+			$boruAuth = new BoruAuthorize();
+			
+			$headers = $boruAuth->getRelatedHeader();
+			$return_value["header"] = $boruAuth->getRelatedHeader();
+			$data = $boruAuth->getTransactionInfo($id,false,0);
+			foreach($data as $k=>$row) {
+				$array = array();
+				$row["Actions"] = "<a href='index.php?module=BoruAuthorizeNet&parenttab=Tools&action=DetailView&record=".$row['id']."'>View</a>";;
+				foreach($headers as $field=>$label) {
+					$array[] = $row[$field];
+				}				
+				$return_value['entries'][$row["id"]] = $array;
+			}
+		}
+		return $return_value;
+	}
+	

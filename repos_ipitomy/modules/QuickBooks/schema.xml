@@ -1,0 +1,1571 @@
+<?xml version='1.0'?>
+<schema>
+	<tables>
+		<table>
+			<name>quickbooks_account_mapping</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_account_mapping` (
+  `id` int(11) NOT NULL,
+  `account_name` varchar(100) NOT NULL,
+  `account_type` varchar(100) DEFAULT NULL,
+  `isactive` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_account_mapping</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_account_mapping` (`id`, `account_name`, `account_type`, `isactive`) VALUES
+(1, 'Payroll Expenses', 'Income', 1);]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_crm_map</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_crm_map` (
+  `qb_listid` varchar(40) NOT NULL,
+  `crmid` int(40) NOT NULL,
+  `qb_editsequence` varchar(40) NOT NULL,
+  `is_history` tinyint(1) default '0',
+  `app_name` varchar(250) NOT NULL default '',
+  `userid` int(40) default NULL,
+  `taxid` int(20) default NULL,
+  `setype` varchar(50) default NULL,
+  `created_time` datetime default NULL,
+  `modified_time` datetime default NULL,
+  PRIMARY KEY  (`qb_listid`,`crmid`,`app_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_crm_map</name>
+			<sql><![CDATA[
+	ALTER TABLE `quickbooks_crm_map`
+	ADD COLUMN `setype`  varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+	ADD COLUMN `created_time`  datetime NULL DEFAULT NULL,
+	ADD COLUMN `modified_time`  datetime NULL DEFAULT NULL;
+	]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_customermap_account</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_customermap_account` (
+  `id` int(11) NOT NULL,
+  `customer_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `firstname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `lastname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `salutation` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `company_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `contact` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `altcontact` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `phone` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `altphone` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fax` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `account_number` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `bill_add` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'bill',
+  `ship_add` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'ship',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_customermap_account</name>
+			<sql><![CDATA[ALTER TABLE `quickbooks_customermap_account`
+	ADD COLUMN `customer_type`  varchar(255) NULL;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_customermap_account</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_customermap_account` (`id`, `customer_name`, `firstname`, `lastname`, `salutation`, `company_name`, `contact`, `altcontact`, `phone`, `altphone`, `fax`, `email`, `account_number`, `description`, `bill_add`, `ship_add`, `customer_type`) VALUES (1, 'accountname', 'None', 'None', 'None', 'None', 'None', 'None', 'phone', 'otherphone', 'fax', 'email1', 'account_no', 'description', 'bill', 'ship', 'cf_qb_customer_type');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_customermap_contact</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_customermap_contact` (
+  `id` int(11) NOT NULL,
+  `customer_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `firstname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `lastname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `salutation` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `company_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `contact` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `altcontact` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `phone` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `altphone` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fax` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `account_number` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `bill_add` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'bill',
+  `ship_add` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'ship',
+  `customer_name_format`  varchar(50) NULL DEFAULT 'fisrt_last',
+  `customer_to`  varchar(50) NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_customermap_contact</name>
+			<sql><![CDATA[ALTER TABLE `quickbooks_customermap_contact`
+	ADD COLUMN `customer_type`  varchar(255) NULL;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_customermap_contact</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_customermap_contact` (`id`, `customer_name`, `firstname`, `lastname`, `salutation`, `company_name`, `contact`, `altcontact`, `phone`, `altphone`, `fax`, `email`, `account_number`, `description`, `bill_add`, `ship_add`, `customer_name_format`, `customer_to`, `customer_type`) VALUES (1, 'fullname', 'firstname', 'lastname', 'salutation', 'accountname', 'fullname', 'None', 'homephone', 'otherphone', 'fax', 'email', 'account_no', 'description', 'bill', 'ship', 'first_last', 'account', 'cf_qb_customer_type');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_log</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_log` (
+  `quickbooks_log_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `quickbooks_ticket_id` int(10) unsigned DEFAULT NULL,
+  `msg` longtext NOT NULL,
+  `log_datetime` datetime NOT NULL,
+  PRIMARY KEY (`quickbooks_log_id`),
+  KEY `quickbooks_ticket_id` (`quickbooks_ticket_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapfield_companyname</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_mapfield_companyname` (
+  `company_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `company_map` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '1=none: Khong map voi chu nao 2 = account_name: map voi account name 2 = contact_name: map voi contact name '
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapfield_companyname</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_mapfield_companyname` (`company_name`, `company_map`) VALUES
+('company_name', 'account_name');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapfield_customername</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_mapfield_customername` (
+  `customer_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `customer_map` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '1 = account_name: map voi account name 2 = contact_name: map voi contact name '
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapfield_customername</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_mapfield_customername` (`customer_name`, `customer_map`) VALUES
+('customer_name', 'contact_name');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapinvoice</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_mapinvoice` (
+  `id` int(11) NOT NULL,
+  `customerjob` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `bill_to` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'bill',
+  `invoice_date` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'ship',
+  `invoice` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `po_no` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `due_date` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `rep` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `item` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `qty` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `rate` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `amount` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tax` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `total` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `customer_tax_code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `payment_applied` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `balance_due` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `memo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `customer_message` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tax_opt` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ship_to` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapinvoice</name>
+			<sql><![CDATA[
+		ALTER TABLE `quickbooks_mapinvoice`
+		ADD COLUMN `class`  varchar(255) NULL;
+	]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapinvoice</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_mapinvoice` (`id`, `customerjob`, `bill_to`, `invoice_date`, `invoice`, `po_no`, `due_date`, `rep`, `item`, `description`, `qty`, `rate`, `amount`, `tax`, `total`, `customer_tax_code`, `payment_applied`, `balance_due`, `memo`, `customer_message`, `tax_opt`, `ship_to`, `class`) VALUES
+(1, 'accountName', 'billingAddress', 'invoicedate', 'invoice_no', 'None', 'duedate', 'None', '', '', '', '', '', 'Null', 'total', '', 'None', 'None', 'None', 'customerno', '', 'shipping', 'cf_qb_class');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapinvoice_sales_order</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_mapinvoice_sales_order` (
+  `id` int(11) NOT NULL,
+  `customerjob` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `bill_to` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'bill',
+  `invoice_date` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'ship',
+  `invoice` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `item` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `qty` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `rate` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `amount` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tax` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `total` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `memo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `customer_message` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tax_opt` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ship_to` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapinvoice_sales_order</name>
+			<sql><![CDATA[
+		ALTER TABLE `quickbooks_mapinvoice_sales_order`
+		ADD COLUMN `class`  varchar(255) NULL;
+	]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapinvoice_sales_order</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_mapinvoice_sales_order` (`id`, `customerjob`, `bill_to`, `invoice_date`, `invoice`, `item`, `description`, `qty`, `rate`, `amount`, `tax`, `total`, `memo`, `customer_message`, `tax_opt`, `ship_to`, `class`) VALUES
+(1, 'accountName', 'billingAddress', 'duedate', 'invoice_no', 'itemName', 'subject', 'qty', 'subject', 'salesOrder', 'Null', 'netTotal', 'None', 'customerno', 'subject', 'shipping', 'cf_qb_class');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapinvoice_sales_receipt</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_mapinvoice_sales_receipt` (
+  `id` int(11) NOT NULL,
+  `customerjob` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `bill_to` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'bill',
+  `invoice_date` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'ship',
+  `invoice` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `item` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `qty` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `rate` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `amount` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tax` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `total` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `memo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `customer_message` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tax_opt` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ship_to` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapinvoice_sales_receipt</name>
+			<sql><![CDATA[
+		ALTER TABLE `quickbooks_mapinvoice_sales_receipt`
+		ADD COLUMN `class`  varchar(255) NULL;
+	]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapinvoice_sales_receipt</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_mapinvoice_sales_receipt` (`id`, `customerjob`, `bill_to`, `invoice_date`, `invoice`, `item`, `description`, `qty`, `rate`, `amount`, `tax`, `total`, `memo`, `customer_message`, `tax_opt`, `ship_to`, `class`) VALUES
+(1, 'accountName', 'billingAddress', 'duedate', 'invoice_no', 'itemName', 'subject', 'qty', 'subject', 'salesOrder', 'Null', 'total', 'None', 'invoicestatus', 'subject', 'shipping', 'cf_qb_class');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapinvoice_setting</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_mapinvoice_setting` (
+  `id` int(11) NOT NULL,
+  `object_map` varchar(50) COLLATE utf8_unicode_ci DEFAULT 'invoice' COMMENT 'object_map: invoice, saleorder, estimate',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapinvoice_setting</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_mapinvoice_setting` (`id`, `object_map`) VALUES
+(1, 'invoice'),
+(2, 'saleorder'),
+(3, 'estimate');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapping_status</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_mapping_status` (
+  `field` varchar(50) NOT NULL DEFAULT '',
+  `value` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`field`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapping_status</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_mapping_status` (`field`, `value`) VALUES
+('invoice', 'Sent,Paid,'),
+('salesorder', 'Approved,Cancelled,'),
+('quotes', 'Accepted,Rejected,');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapquotes_invoice</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_mapquotes_invoice` (
+  `id` int(11) NOT NULL,
+  `customerjob` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `class` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `bill_to` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'bill',
+  `invoice_date` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'ship',
+  `invoice` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `po_no` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `terms` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `due_date` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `rep` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `item` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `qty` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `rate` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `amount` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tax` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `total` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `customer_tax_code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `payment_applied` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `balance_due` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `memo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `customer_message` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tax_opt` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ship_to` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapquotes_invoice</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_mapquotes_invoice` (`id`, `customerjob`, `class`, `bill_to`, `invoice_date`, `invoice`, `po_no`, `terms`, `due_date`, `rep`, `item`, `description`, `qty`, `rate`, `amount`, `tax`, `total`, `customer_tax_code`, `payment_applied`, `balance_due`, `memo`, `customer_message`, `tax_opt`, `ship_to`) VALUES
+(1, 'accountName', 'None', 'billingAddress', 'validtill', 'quote_no', 'None', 'None', 'validtill', 'None', 'partNumber', 'None', 'qty', 'listPrice', 'total', 'Null', 'grandTotal', 'None', 'None', 'None', 'None', 'None', 'None', 'shippingAddress');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapquotes_sales_order</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_mapquotes_sales_order` (
+  `id` int(11) NOT NULL,
+  `customerjob` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `class` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `address` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'bill',
+  `so_date` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'ship',
+  `so_no` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ship_to` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `item` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `qty` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `rate` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `amount` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tax` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `total` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `memo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `customer_message` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tax_opt` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapquotes_sales_order</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_mapquotes_sales_order` (`id`, `customerjob`, `class`, `address`, `so_date`, `so_no`, `ship_to`, `item`, `description`, `qty`, `rate`, `amount`, `tax`, `total`, `memo`, `customer_message`, `tax_opt`) VALUES
+(1, 'accountName', 'None', 'billingAddress', 'validtill', 'quote_no', 'shippingAddress', 'partNumber', 'productName', 'qty', 'listPrice', 'None', 'Null', 'grandTotal', 'None', 'None', 'None');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapquotes_sales_receipt</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_mapquotes_sales_receipt` (
+  `id` int(11) NOT NULL,
+  `customerjob` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `class` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sold_to` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'bill',
+  `ship_to` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sr_date` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'ship',
+  `sale_no` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `check_no` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `payment_method` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `item` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `qty` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `rate` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `class_line_item` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `amount` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tax` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `customer_message` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `customer_tax_code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `total` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `memo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tax_opt` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapquotes_sales_receipt</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_mapquotes_sales_receipt` (`id`, `customerjob`, `class`, `sold_to`, `ship_to`, `sr_date`, `sale_no`, `check_no`, `payment_method`, `item`, `description`, `qty`, `rate`, `class_line_item`, `amount`, `tax`, `customer_message`, `customer_tax_code`, `total`, `memo`, `tax_opt`) VALUES
+(1, 'accountName', 'None', 'billingAddress', '', 'validtill', 'quote_no', 'None', 'None', 'partNumber', 'None', 'qty', 'listPrice', 'None', 'total', 'Null', 'None', 'None', 'grandTotal', 'None', 'None');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapsalesorder</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_mapsalesorder` (
+  `id` int(11) NOT NULL,
+  `customerjob` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `bill_to` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'bill',
+  `invoice_date` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'ship',
+  `invoice` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `item` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `qty` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `rate` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `amount` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tax` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `total` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `memo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `customer_message` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tax_opt` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ship_to` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapsalesorder</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_mapsalesorder` (`id`, `customerjob`, `bill_to`, `invoice_date`, `invoice`, `item`, `description`, `qty`, `rate`, `amount`, `tax`, `total`, `memo`, `customer_message`, `tax_opt`, `ship_to`) VALUES
+(1, 'accountName', 'billingAddress', 'duedate', 'salesorder_no', 'itemName', 'subject', 'qty', 'subject', 'salesOrder', 'Null', 'total', 'None', 'customerno', 'subject', 'shippingAddress');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapsalesorder_invoice</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_mapsalesorder_invoice` (
+  `id` int(11) NOT NULL,
+  `customerjob` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `bill_to` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'bill',
+  `invoice_date` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'ship',
+  `invoice` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `po_no` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `due_date` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `rep` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `item` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `qty` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `rate` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `amount` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tax` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `total` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `customer_tax_code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `payment_applied` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `balance_due` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `memo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `customer_message` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tax_opt` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ship_to` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapsalesorder_invoice</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_mapsalesorder_invoice` (`id`, `customerjob`, `bill_to`, `invoice_date`, `invoice`, `po_no`, `due_date`, `rep`, `item`, `description`, `qty`, `rate`, `amount`, `tax`, `total`, `customer_tax_code`, `payment_applied`, `balance_due`, `memo`, `customer_message`, `tax_opt`, `ship_to`) VALUES
+(1, 'accountName', 'billingAddress', 'duedate', 'salesorder_no', 'None', 'duedate', 'None', '', '', '', '', '', 'Null', 'total', '', 'None', 'None', 'None', 'customerno', '', 'shippingAddress');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapsalesorder_sales_receipt</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_mapsalesorder_sales_receipt` (
+  `id` int(11) NOT NULL,
+  `customerjob` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `bill_to` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'bill',
+  `invoice_date` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'ship',
+  `invoice` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `item` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `qty` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `rate` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `amount` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tax` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `total` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `memo` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `customer_message` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tax_opt` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ship_to` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapsalesorder_sales_receipt</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_mapsalesorder_sales_receipt` (`id`, `customerjob`, `bill_to`, `invoice_date`, `invoice`, `item`, `description`, `qty`, `rate`, `amount`, `tax`, `total`, `memo`, `customer_message`, `tax_opt`, `ship_to`) VALUES
+(1, 'accountName', 'billingAddress', 'duedate', 'salesorder_no', 'itemName', 'subject', 'qty', 'subject', 'salesOrder', 'Null', 'total', 'None', 'customerno', 'subject', 'shippingAddress');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_product_service_mapping</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_product_service_mapping` (
+  `name` varchar(20) NOT NULL,
+  `account` varchar(100) NOT NULL,
+  `item_type` varchar(100) NOT NULL,
+  PRIMARY KEY (`name`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_product_service_mapping</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_product_service_mapping` (`name`, `account`, `item_type`) VALUES
+('Products', 'Payroll Expenses', 'ItemInventory'),
+('Services', 'Payroll Expenses', 'ItemInventory'),
+('PriceStyle', '', 'USA'),
+('Taxes', 'Default', ''),
+('Discount', 'Payroll Expenses', ''),
+('QBXML', '8.0', ''),
+('DateTransaction', '2000-01-01', ''),
+('DateTranInvoice', '2000-01-01', ''),
+('DateTranSalesOrder', '2000-01-01', ''),
+('DateTranSalesReceipt', '2000-01-01', ''),
+('QBTimeZone', 'America/New_York', ''),
+('DateTranItem', '2000-01-01', ''),
+('DateTranPayment', '2000-01-01', '');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_product_service_mapping</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_product_service_mapping` (`name`, `account`, `item_type`) VALUES
+('inv_taxtype', 'group', ''),
+('so_taxtype', 'group', ''),
+('qo_taxtype', 'group', '');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_queue</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_queue` (
+  `quickbooks_queue_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `quickbooks_ticket_id` int(10) unsigned DEFAULT NULL,
+  `qb_action` varchar(32) NOT NULL,
+  `ident` varchar(32) NOT NULL,
+  `extra` text NOT NULL,
+  `priority` tinyint(3) unsigned NOT NULL,
+  `qb_status` char(1) NOT NULL DEFAULT 'q',
+  `msg` longtext NOT NULL,
+  `enqueue_datetime` datetime NOT NULL,
+  `dequeue_datetime` datetime DEFAULT NULL,
+  `app_name`  varchar(250) NULL,
+  `setype`  varchar(250) NULL,
+  PRIMARY KEY (`quickbooks_queue_id`),
+  KEY `qb_action` (`qb_action`,`ident`),
+  KEY `priority` (`priority`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_queue</name>
+			<sql><![CDATA[
+	
+	ALTER TABLE `quickbooks_queue`
+	ADD COLUMN `setype`  varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+	
+]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_ticket</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_ticket` (
+  `quickbooks_ticket_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `qb_username` varchar(40) NOT NULL,
+  `ticket` varchar(32) NOT NULL,
+  `processed` int(10) unsigned NOT NULL,
+  `lasterror_num` varchar(16) NOT NULL,
+  `lasterror_msg` varchar(255) NOT NULL,
+  `ipaddr` varchar(15) NOT NULL,
+  `write_datetime` datetime NOT NULL,
+  `touch_datetime` datetime NOT NULL,
+  `mailled` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`quickbooks_ticket_id`),
+  KEY `qb_username` (`qb_username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_user</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_user` (
+  `qb_username` varchar(40) NOT NULL,
+  `qb_password` varchar(40) NOT NULL,
+  `write_datetime` datetime NOT NULL,
+  `touch_datetime` datetime NOT NULL,
+  PRIMARY KEY (`qb_username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_user</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_user` (`qb_username`, `qb_password`, `write_datetime`, `touch_datetime`) VALUES
+('admin', '3fcc90b1c41dd66020c52c69b50139555a4b7b60', '2009-12-10 21:39:52', '2011-05-06 08:28:29');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_modules</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_modules` (
+  `module` varchar(20) DEFAULT NULL,
+  `qb` tinyint(1) DEFAULT NULL,
+  `vt` tinyint(1) NULL,
+  PRIMARY KEY (`module`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_modules</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_modules` (`module`, `qb`, `vt`) VALUES
+('Customers', 1, 1),
+('Products', 1, 1),
+('Services', 1, 1),
+('Invoice', 1, 1),
+('Quotes', 1, ''),
+('SalesOrder', 1, 1),
+('SalesReceipt', '', 1);]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_vendor_mapping</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_vendor_mapping` (
+  `vendorid` int(20) NOT NULL,
+  `vendorname` varchar(200) NOT NULL,
+  PRIMARY KEY (`vendorid`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_vendor_mapping</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_vendor_mapping` VALUES ('0', 'Default');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_tranfer_history</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_tranfer_history` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `time` datetime DEFAULT NULL,
+  `type` varchar(100) DEFAULT NULL,
+  `number` varchar(20) DEFAULT NULL,
+  `name` varchar(250) DEFAULT NULL,
+  `direction` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_errors</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_errors` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `time` datetime DEFAULT NULL,
+  `action` varchar(100) DEFAULT NULL,
+  `crmid` varchar(20) DEFAULT NULL,
+  `error` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_company_file</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_company_file` (
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `app_name` varchar(250) NOT NULL,
+  `company_file` varchar(1000) NOT NULL,
+  `processed` bit(1) NOT NULL DEFAULT '\0',
+  `active`  tinyint(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;]]></sql>
+		</table>
+		<table>
+			<name>vtiger_accountscf</name>
+			<sql><![CDATA[ALTER TABLE `vtiger_accountscf` ADD COLUMN `qb`  varchar(3) NULL DEFAULT '0';]]></sql>
+		</table>
+		<table>
+			<name>vtiger_field</name>
+			<sql><![CDATA[INSERT INTO vtiger_field
+SELECT '6', '', 'qb', 'vtiger_accountscf', '2', '56', 'qb', 'Sync to QB', '0', '2', '0', '100', '1', '10', '1', 'C~O', '1', '0', 'BAS', '1', null
+FROM DUAL WHERE NOT EXISTS 
+(SELECT * FROM vtiger_field WHERE tabid = '6' AND columnname = 'qb' AND tablename = 'vtiger_accountscf' and fieldname = 'qb');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_contactscf</name>
+			<sql><![CDATA[ALTER TABLE `vtiger_contactscf` ADD COLUMN `qb`  varchar(3) NULL DEFAULT '0';]]></sql>
+		</table>
+		<table>
+			<name>vtiger_field</name>
+			<sql><![CDATA[INSERT INTO vtiger_field
+SELECT '4', '', 'qb', 'vtiger_contactscf', '2', '56', 'qb', 'Sync to QB', '0', '2', '0', '100', '1', '5', '1', 'C~O', '1', '0', 'BAS', '1', null
+FROM DUAL WHERE NOT EXISTS 
+(SELECT * FROM vtiger_field WHERE tabid = '4' AND columnname = 'qb' AND tablename = 'vtiger_contactscf' and fieldname = 'qb');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_invoicecf</name>
+			<sql><![CDATA[ALTER TABLE `vtiger_invoicecf` ADD COLUMN `qb`  varchar(3) NULL DEFAULT '0';]]></sql>
+		</table>
+		<table>
+			<name>vtiger_invoicecf</name>
+			<sql><![CDATA[ALTER TABLE `vtiger_invoicecf` ADD COLUMN `cf_qb_no`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '';]]></sql>
+		</table>
+		<table>
+			<name>vtiger_field</name>
+			<sql><![CDATA[INSERT INTO vtiger_field
+SELECT '23', '', 'qb', 'vtiger_invoicecf', '2', '56', 'qb', 'Sync to QB', '0', '2', '0', '100', '1', '68', '1', 'C~O', '1', '0', 'BAS', '1', null
+FROM DUAL WHERE NOT EXISTS 
+(SELECT * FROM vtiger_field WHERE tabid = '23' AND columnname = 'qb' AND tablename = 'vtiger_invoicecf' and fieldname = 'qb');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_field</name>
+			<sql><![CDATA[INSERT INTO vtiger_field
+SELECT '23', '', 'cf_qb_no', 'vtiger_invoicecf', '2', '1', 'cf_qb_no', 'QB No', '0', '2', '', '100', '4', '68', '1', 'V~O~LE~50', '3', '0', 'BAS', '1', null
+FROM DUAL WHERE NOT EXISTS 
+(SELECT * FROM vtiger_field WHERE tabid = '23' AND columnname = 'cf_qb_no' AND tablename = 'vtiger_invoicecf' and fieldname = 'cf_qb_no');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_salesordercf</name>
+			<sql><![CDATA[ALTER TABLE `vtiger_salesordercf` ADD COLUMN `qb`  varchar(3) NULL DEFAULT '0';]]></sql>
+		</table>
+		<table>
+			<name>vtiger_salesordercf</name>
+			<sql><![CDATA[ALTER TABLE `vtiger_salesordercf` ADD COLUMN `cf_qb_no`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '';]]></sql>
+		</table>
+		<table>
+			<name>vtiger_field</name>
+			<sql><![CDATA[INSERT INTO vtiger_field
+SELECT '22', '', 'qb', 'vtiger_salesordercf', '2', '56', 'qb', 'Sync to QB', '0', '2', '0', '100', '1', '62', '1', 'C~O', '1', '0', 'BAS', '1', null
+FROM DUAL WHERE NOT EXISTS 
+(SELECT * FROM vtiger_field WHERE tabid = '22' AND columnname = 'qb' AND tablename = 'vtiger_salesordercf' and fieldname = 'qb');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_field</name>
+			<sql><![CDATA[INSERT INTO vtiger_field
+SELECT '22', '', 'cf_qb_no', 'vtiger_salesordercf', '2', '1', 'cf_qb_no', 'QB No', '0', '2', '', '100', '2', '62', '1', 'V~O~LE~50', '3', '0', 'BAS', '1', null
+FROM DUAL WHERE NOT EXISTS 
+(SELECT * FROM vtiger_field WHERE tabid = '22' AND columnname = 'cf_qb_no' AND tablename = 'vtiger_salesordercf' and fieldname = 'cf_qb_no');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_salesordercf</name>
+			<sql><![CDATA[ALTER TABLE `vtiger_salesordercf` ADD COLUMN `cf_qb_class`  varchar(159) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '';]]></sql>
+		</table>
+		<table>
+			<name>vtiger_field</name>
+			<sql><![CDATA[INSERT INTO vtiger_field
+SELECT '22', '', 'cf_qb_class', 'vtiger_salesordercf', '2', '1', 'cf_qb_class', 'QB Class', '0', '2', '', '100', '1', '62', '1', 'C~O', '1', '0', 'BAS', '1', null
+FROM DUAL WHERE NOT EXISTS 
+(SELECT * FROM vtiger_field WHERE tabid = '22' AND columnname = 'cf_qb_class' AND tablename = 'vtiger_salesordercf' and fieldname = 'cf_qb_class');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_quotescf</name>
+			<sql><![CDATA[ALTER TABLE `vtiger_quotescf` ADD COLUMN `qb`  varchar(3) NULL DEFAULT '0';]]></sql>
+		</table>
+		<table>
+			<name>vtiger_quotescf</name>
+			<sql><![CDATA[ALTER TABLE `vtiger_quotescf` ADD COLUMN `cf_qb_no`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '';]]></sql>
+		</table>
+		<table>
+			<name>vtiger_field</name>
+			<sql><![CDATA[INSERT INTO vtiger_field
+SELECT '20', '', 'qb', 'vtiger_quotescf', '2', '56', 'qb', 'Sync to QB', '0', '2', '0', '100', '1', '50', '1', 'C~O', '1', '0', 'BAS', '1', null
+FROM DUAL WHERE NOT EXISTS 
+(SELECT * FROM vtiger_field WHERE tabid = '20' AND columnname = 'qb' AND tablename = 'vtiger_quotescf' and fieldname = 'qb');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_field</name>
+			<sql><![CDATA[INSERT INTO vtiger_field
+SELECT '20', '', 'cf_qb_no', 'vtiger_quotescf', '2', '1', 'cf_qb_no', 'QB No', '0', '2', '', '100', '2', '50', '1', 'V~O~LE~50', '3', '0', 'BAS', '1', null
+FROM DUAL WHERE NOT EXISTS 
+(SELECT * FROM vtiger_field WHERE tabid = '20' AND columnname = 'cf_qb_no' AND tablename = 'vtiger_quotescf' and fieldname = 'cf_qb_no');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_productcf</name>
+			<sql><![CDATA[ALTER TABLE `vtiger_productcf` 
+ADD COLUMN `qb`  varchar(3) NULL DEFAULT '0',
+ADD COLUMN `qbaccount`  varchar(255) NULL DEFAULT '',
+ADD COLUMN `qbitemtype`  varchar(255) NULL DEFAULT '';]]></sql>
+		</table>
+		<table>
+			<name>vtiger_field</name>
+			<sql><![CDATA[INSERT INTO vtiger_field
+SELECT '14', '', 'qb', 'vtiger_productcf', '2', '56', 'qb', 'Sync to QB', '0', '2', '0', '100', '1', '34', '1', 'C~O', '1', '0', 'BAS', '1', null
+FROM DUAL WHERE NOT EXISTS 
+(SELECT * FROM vtiger_field WHERE tabid = '14' AND columnname = 'qb' AND tablename = 'vtiger_productcf' and fieldname = 'qb');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_field</name>
+			<sql><![CDATA[INSERT INTO vtiger_field
+SELECT '14', '', 'qbaccount', 'vtiger_productcf', '2', '15', 'qbaccount', 'QB Account', '0', '2', '0', '100', '2', '34', '1', 'V~O', '1', '0', 'BAS', '1', null
+FROM DUAL WHERE NOT EXISTS 
+(SELECT * FROM vtiger_field WHERE tabid = '14' AND columnname = 'qbaccount' AND tablename = 'vtiger_productcf' and fieldname = 'qbaccount');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_field</name>
+			<sql><![CDATA[INSERT INTO vtiger_field
+SELECT '14', '', 'qbitemtype', 'vtiger_productcf', '2', '15', 'qbitemtype', 'QB Item Type', '0', '2', '0', '100', '2', '34', '1', 'V~O', '1', '0', 'BAS', '1', null
+FROM DUAL WHERE NOT EXISTS 
+(SELECT * FROM vtiger_field WHERE tabid = '14' AND columnname = 'qbitemtype' AND tablename = 'vtiger_productcf' and fieldname = 'qbitemtype');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_servicecf</name>
+			<sql><![CDATA[ALTER TABLE `vtiger_servicecf` 
+ADD COLUMN `qb`  varchar(3) NULL DEFAULT '0',
+ADD COLUMN `qbaccount`  varchar(255) NULL DEFAULT '',
+ADD COLUMN `qbitemtype`  varchar(255) NULL DEFAULT '';]]></sql>
+		</table>
+		<table>
+			<name>vtiger_field</name>
+			<sql><![CDATA[INSERT INTO vtiger_field
+SELECT '36', '', 'qb', 'vtiger_servicecf', '2', '56', 'qb', 'Sync to QB', '0', '2', '0', '100', '1', '95', '1', 'C~O', '1', '0', 'BAS', '1', null
+FROM DUAL WHERE NOT EXISTS 
+(SELECT * FROM vtiger_field WHERE columnname = 'qb' AND tablename = 'vtiger_servicecf' and fieldname = 'qb');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_field</name>
+			<sql><![CDATA[INSERT INTO vtiger_field
+SELECT '36', '', 'qbaccount', 'vtiger_servicecf', '2', '15', 'qbaccount', 'QB Account', '0', '2', '0', '100', '2', '95', '1', 'V~O', '1', '0', 'BAS', '1', null
+FROM DUAL WHERE NOT EXISTS 
+(SELECT * FROM vtiger_field WHERE columnname = 'qbaccount' AND tablename = 'vtiger_servicecf' and fieldname = 'qbaccount');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_field</name>
+			<sql><![CDATA[INSERT INTO vtiger_field
+SELECT '36', '', 'qbitemtype', 'vtiger_servicecf', '2', '15', 'qbitemtype', 'QB Item Type', '0', '2', '0', '100', '2', '95', '1', 'V~O', '1', '0', 'BAS', '1', null
+FROM DUAL WHERE NOT EXISTS 
+(SELECT * FROM vtiger_field WHERE columnname = 'qbitemtype' AND tablename = 'vtiger_servicecf' and fieldname = 'qbitemtype');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_qbaccount</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `vtiger_qbaccount` (
+  `qbaccountid` int(19) NOT NULL AUTO_INCREMENT,
+  `qbaccount` varchar(200) NOT NULL,
+  `presence` int(1) NOT NULL DEFAULT '1',
+  `picklist_valueid` int(19) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`qbaccountid`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;]]></sql>
+		</table>
+		<table>
+			<name>vtiger_qbaccount</name>
+			<sql><![CDATA[INSERT INTO `vtiger_qbaccount` VALUES ('1', 'Payroll Expenses', '1', '1');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_qbitemtype</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `vtiger_qbitemtype` (
+  `qbitemtypeid` int(19) NOT NULL AUTO_INCREMENT,
+  `qbitemtype` varchar(200) NOT NULL,
+  `presence` int(1) NOT NULL DEFAULT '1',
+  `picklist_valueid` int(19) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`qbitemtypeid`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;]]></sql>
+		</table>
+		<table>
+			<name>vtiger_qbitemtype</name>
+			<sql><![CDATA[INSERT INTO `vtiger_qbitemtype` VALUES 
+('1', 'None', '1', '1'), 
+('2', 'ItemService', '1', '2'), 
+('3', 'ItemNonInventory', '1', '3'), 
+('4', 'ItemOtherCharge', '1', '4'), 
+('5', 'ItemInventory', '1', '5'), 
+('6', 'ItemInventoryAssembly', '1', '6'),
+('7', 'ItemFixedAsset', '1', '5');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_picklist</name>
+			<sql><![CDATA[INSERT INTO `vtiger_picklist` VALUES 
+('','qbaccount'),
+('','qbitemtype');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_picklist_seq</name>
+			<sql><![CDATA[UPDATE `vtiger_picklist_seq` SET id = id + 2;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_customerrel</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_customerrel` (
+  `crmid` int(40) NOT NULL,
+  `customer_name` varchar(200) NOT NULL,
+  PRIMARY KEY (`crmid`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_common</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_common` (
+  `common_key` varchar(10) NOT NULL DEFAULT '',
+  `common_value` varchar(250) DEFAULT NULL,
+  `common_option` varchar(250) DEFAULT NULL,
+  PRIMARY KEY (`common_key`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;]]></sql>
+		</table>
+		<table>
+			<name>vtiger_field</name>
+			<sql><![CDATA[INSERT INTO vtiger_field
+SELECT '23', '', 'job', 'vtiger_invoicecf', '2', '1', 'job', 'Job', '0', '2', '', '100', '1', '68', '1', 'V~O~LE~100', '1', '0', 'BAS', '1', null
+FROM DUAL WHERE NOT EXISTS
+(SELECT * FROM vtiger_field WHERE tabid = '23' AND columnname = 'job' AND tablename = 'vtiger_invoicecf' and fieldname = 'job');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_invoicecf</name>
+			<sql><![CDATA[ALTER TABLE `vtiger_invoicecf` ADD COLUMN `job` varchar(250) NULL DEFAULT '0';]]></sql>
+		</table>
+		<table>
+			<name>vtiger_field</name>
+			<sql><![CDATA[INSERT INTO vtiger_field
+SELECT '22', '', 'job', 'vtiger_salesordercf', '2', '1', 'job', 'Job', '0', '2', '', '100', '1', '62', '1', 'V~O~LE~100', '1', '0', 'BAS', '1', null
+FROM DUAL WHERE NOT EXISTS
+(SELECT * FROM vtiger_field WHERE tabid = '22' AND columnname = 'job' AND tablename = 'vtiger_salesordercf' and fieldname = 'job');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_salesordercf</name>
+			<sql><![CDATA[ALTER TABLE `vtiger_salesordercf` ADD COLUMN `job` varchar(250) NULL DEFAULT '0';]]></sql>
+		</table>
+		<table>
+			<name>vtiger_field</name>
+			<sql><![CDATA[INSERT INTO vtiger_field
+SELECT '20', '', 'job', 'vtiger_quotescf', '2', '1', 'job', 'Job', '0', '2', '', '100', '1', '50', '1', 'V~O~LE~100', '1', '0', 'BAS', '1', null
+FROM DUAL WHERE NOT EXISTS
+(SELECT * FROM vtiger_field WHERE tabid = '20' AND columnname = 'job' AND tablename = 'vtiger_quotescf' and fieldname = 'job');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_quotescf</name>
+			<sql><![CDATA[ALTER TABLE `vtiger_quotescf` ADD COLUMN `job` varchar(250) NULL DEFAULT '0';]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_customer_job</name>
+			<sql><![CDATA[CREATE TABLE `quickbooks_customer_job` (
+`qbid` varchar(50) NOT NULL,
+`name` varchar(250) DEFAULT '',
+`parentid` varchar(50) DEFAULT '',
+`app_name` varchar(250) NOT NULL DEFAULT '',
+PRIMARY KEY (`qbid`,`app_name`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_discounts</name>
+			<sql><![CDATA[CREATE TABLE `quickbooks_discounts` (
+  `id` int(11) NOT NULL auto_increment,
+  `qblistid` varchar(255) default NULL,
+  `item_name` varchar(255) default NULL,
+  `description` varchar(500) default NULL,
+  `amount` varchar(255) default NULL,
+  `tax` varchar(255) default NULL,
+  `item_type` varchar(255) default NULL,
+  `account_ref` varchar(255) default NULL,
+  `app_name` varchar(255) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;]]></sql>
+		</table>
+		<table>
+			<name>vtiger_inventoryproductrel</name>
+			<sql><![CDATA[ALTER TABLE `vtiger_inventoryproductrel`
+MODIFY COLUMN `comment`  text CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_servicedate</name>
+			<sql><![CDATA[CREATE TABLE `quickbooks_servicedate` (
+  `id` int(19) default NULL,
+  `productid` int(19) default NULL,
+  `servicedate` date default NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_servicedate</name>
+			<sql><![CDATA[ALTER TABLE `quickbooks_servicedate`
+	ADD COLUMN `sequence_no`  int(19) NULL,
+	ADD COLUMN `app_name`  varchar(255) NULL;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_gateway</name>
+			<sql><![CDATA[CREATE TABLE `quickbooks_gateway` (
+  `name` varchar(250) NOT NULL,
+  `label` varchar(1000) DEFAULT NULL,
+  `enabled` varchar(2) DEFAULT NULL,
+  `field_mapping` varchar(1000) DEFAULT NULL,
+  `selected` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_gateway</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_gateway` VALUES 
+('QBMS', 'Quickbooks Merchant Servicves', '', 'cf_credit_card_number:CreditCardNumber;cf_expiration_month:ExpirationMonth;cf_expiration_year:ExpirationYear;cf_name_on_card:NameOnCard;cf_credit_card_address:CreditCardAddress;cf_credit_card_postal_code:CreditCardPostalCode;cf_credit_card_trans_id:CreditCardTransID;cf_authorization_code:AuthorizationCode;cf_avs_street:AVSStreet;cf_avs_zip:AVSZip;cf_card_security_code_match:CardSecurityCodeMatch;cf_recon_batch_id:ReconBatchID;cf_payment_grouping_code:PaymentGroupingCode;cf_payment_status:PaymentStatus;cf_client_trans_id:ClientTransID;cf_txn_authorization_time:TxnAuthorizationTime;cf_txn_authorization_stamp:TxnAuthorizationStamp;cf_merchant_account_number:MerchantAccountNumber;cf_cc_type:cc type', '1'),
+('Products', 'Products', 'on', 'productname:Name;description:Description;unit_price:Price;qbaccount:Account;qbitemtype:Type', '1'),
+('Services', 'Services', 'on', 'servicename:Name;description:Description;unit_price:Price;qbaccount:Account;qbitemtype:Type', '0');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_payment</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_payment` (
+  `paymentid` int(15) NOT NULL auto_increment,
+  `txnid` varchar(255) default NULL,
+  `paymentno` varchar(50) default NULL,
+  `paymentdate` date default NULL,
+  `amount` float(20,3) default NULL,
+  `account` varchar(255) default NULL,
+  `receive_from` varchar(255) default NULL,
+  `payment_method` varchar(255) default NULL,
+  `desc` text,
+  PRIMARY KEY  (`paymentid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_payment_invoice</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `quickbooks_payment_invoice` (
+  `invoiceid` int(15) NOT NULL,
+  `paymentid` int(15) NOT NULL,
+  PRIMARY KEY  (`invoiceid`,`paymentid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;]]></sql>
+		</table>
+		<table>
+			<name>vtiger_contactscf</name>
+			<sql><![CDATA[ALTER TABLE `vtiger_contactscf`
+	ADD COLUMN `cf_qb_customer_type`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '';]]></sql>
+		</table>
+		<table>
+			<name>vtiger_accountscf</name>
+			<sql><![CDATA[ALTER TABLE `vtiger_accountscf`
+	ADD COLUMN `cf_qb_customer_type`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '';]]></sql>
+		</table>
+		<table>
+			<name>vtiger_field</name>
+			<sql><![CDATA[INSERT INTO vtiger_field
+SELECT '6', '', 'cf_qb_customer_type', 'vtiger_accountscf', '2', '15', 'cf_qb_customer_type', 'QB Customer Type', '0', '2', '', '100', '2', '10', '1', 'V~O', '1', '0', 'BAS', '1', null
+FROM DUAL WHERE NOT EXISTS 
+(SELECT * FROM vtiger_field WHERE tabid = '6' AND columnname = 'cf_qb_customer_type' AND tablename = 'vtiger_accountscf' and fieldname = 'cf_qb_customer_type');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_field</name>
+			<sql><![CDATA[INSERT INTO vtiger_field
+SELECT '4', '', 'cf_qb_customer_type', 'vtiger_contactscf', '2', '15', 'cf_qb_customer_type', 'QB Customer Type', '0', '2', '', '100', '2', '5', '1', 'V~O', '1', '0', 'BAS', '1', null
+FROM DUAL WHERE NOT EXISTS 
+(SELECT * FROM vtiger_field WHERE tabid = '4' AND columnname = 'cf_qb_customer_type' AND tablename = 'vtiger_contactscf' and fieldname = 'cf_qb_customer_type');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_cf_qb_customer_type</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `vtiger_cf_qb_customer_type` (
+	  `cf_qb_customer_typeid` int(19) NOT NULL auto_increment,
+	  `cf_qb_customer_type` varchar(200) NOT NULL,
+	  `presence` int(1) NOT NULL default '1',
+	  `picklist_valueid` int(19) NOT NULL default '0',
+	  PRIMARY KEY  (`cf_qb_customer_typeid`)
+	) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;]]></sql>
+		</table>
+		<table>
+			<name>vtiger_cf_qb_customer_type_seq</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `vtiger_cf_qb_customer_type_seq` (
+	  `id` int(11) NOT NULL
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8;]]></sql>
+		</table>
+		<table>
+			<name>vtiger_picklist</name>
+			<sql><![CDATA[INSERT INTO `vtiger_picklist` VALUES ('','cf_qb_customer_type');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_picklist_seq</name>
+			<sql><![CDATA[UPDATE `vtiger_picklist_seq` SET id = id + 1;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_webconnector</name>
+			<sql><![CDATA[CREATE TABLE `quickbooks_webconnector` (
+  `webconnector_id` int(19) NOT NULL AUTO_INCREMENT,
+  `ticket` varchar(255) DEFAULT NULL,
+  `datetime_start` datetime DEFAULT NULL,
+  `datetime_end` datetime DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`webconnector_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_tax_code</name>
+			<sql><![CDATA[CREATE TABLE `quickbooks_tax_code` (
+  `id` int(19) NOT NULL auto_increment,
+  `qb_listid` varchar(40) default NULL,
+  `qb_editsequence` varchar(40) default NULL,
+  `app_name` varchar(250) default '',
+  `tax_code_name` varchar(250) NOT NULL,
+  `is_active` tinyint(1) default '1',
+  `is_taxable` tinyint(1) default '1',
+  `tax_ref_id` varchar(50) default NULL,
+  `tax_ref_name` varchar(250) default NULL,
+  `created_time` datetime default NULL,
+  `modified_time` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapquotes_estimate</name>
+			<sql><![CDATA[CREATE TABLE `quickbooks_mapquotes_estimate` (
+`id`  int(11) NOT NULL ,
+`customerjob`  varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
+`class`  varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
+`bill_to`  varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT 'bill' ,
+`ship_to`  varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
+`estimate_date`  varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT 'ship' ,
+`estimate_no`  varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
+`item`  varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
+`description`  varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
+`qty`  varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
+`rate`  varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
+`amount`  varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
+`customer_message`  varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
+`total`  varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
+`memo`  varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL ,
+PRIMARY KEY (`id`)
+)
+ENGINE=MyISAM
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_unicode_ci
+CHECKSUM=0
+ROW_FORMAT=DYNAMIC
+DELAY_KEY_WRITE=0;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapquotes_estimate</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_mapquotes_estimate` (`id`, `customerjob`, `class`, `bill_to`, `ship_to`, `estimate_date`, `estimate_no`, `item`, `description`, `qty`, `rate`, `amount`, `customer_message`, `total`, `memo`) VALUES (1, 'accountName', 'None', 'billingAddress', 'shippingAddress', 'validtill', 'quote_no', 'partNumber', 'description', 'qty', 'listPrice', 'total', 'None', 'grandTotal', 'None');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_cf_qb_vendor_type</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `vtiger_cf_qb_vendor_type` (
+	  `cf_qb_vendor_typeid` int(19) NOT NULL auto_increment,
+	  `cf_qb_vendor_type` varchar(200) NOT NULL,
+	  `presence` int(1) NOT NULL default '1',
+	  `picklist_valueid` int(19) NOT NULL default '0',
+	  PRIMARY KEY  (`cf_qb_vendor_typeid`)
+	) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;]]></sql>
+		</table>
+		<table>
+			<name>vtiger_cf_qb_vendor_type_seq</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `vtiger_cf_qb_vendor_type_seq` (
+	  `id` int(11) NOT NULL
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8;]]></sql>
+		</table>
+		<table>
+			<name>vtiger_picklist</name>
+			<sql><![CDATA[INSERT INTO `vtiger_picklist` VALUES ('','cf_qb_vendor_type');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_product_service_mapping</name>
+			<sql><![CDATA[ALTER TABLE `quickbooks_product_service_mapping` MODIFY COLUMN `name`  varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL FIRST ;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_product_service_mapping</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_product_service_mapping` (`name`, `account`, `item_type`) VALUES ('DateTransactionVendor', '2000-01-01', '');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_modules</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_modules` (`module`, `qb`, `vt`) VALUES ('Vendors', 0, 0);]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_product_service_mapping</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_product_service_mapping` (`name`, `account`, `item_type`) VALUES ('DateTransactionPO', '2000-01-01', '');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_product_service_mapping</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_product_service_mapping` (`name`, `account`, `item_type`) VALUES ('po_taxtype', 'group', '');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_modules</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_modules` (`module`, `qb`, `vt`) VALUES ('PurchaseOrder', 0, 0);]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_map_po</name>
+			<sql><![CDATA[CREATE TABLE `quickbooks_map_po` (
+  `id` int(11) NOT NULL,
+  `vendor` varchar(255) collate utf8_unicode_ci default NULL,
+  `class` varchar(255) collate utf8_unicode_ci default 'bill',
+  `ship_to` varchar(255) collate utf8_unicode_ci default 'ship',
+  `po_date` varchar(255) collate utf8_unicode_ci default NULL,
+  `po_no` varchar(255) collate utf8_unicode_ci default NULL,
+  `vendor_address` varchar(255) collate utf8_unicode_ci default NULL,
+  `ship_address` varchar(255) collate utf8_unicode_ci default NULL,
+  `due_date` varchar(255) collate utf8_unicode_ci default NULL,
+  `expected_date` varchar(255) collate utf8_unicode_ci default NULL,
+  `ship_method` varchar(255) collate utf8_unicode_ci default NULL,
+  `fob` varchar(255) collate utf8_unicode_ci default NULL,
+  `memo` varchar(255) collate utf8_unicode_ci default NULL,
+  `vendor_msg` varchar(255) collate utf8_unicode_ci default NULL,
+  `is_to_be_printed` varchar(255) collate utf8_unicode_ci default NULL,
+  `is_to_be_emailed` varchar(255) collate utf8_unicode_ci default NULL,
+  `is_tax_included` varchar(255) collate utf8_unicode_ci default NULL,
+  `sales_tax_code` varchar(255) collate utf8_unicode_ci default NULL,
+  `other1` varchar(255) collate utf8_unicode_ci default NULL,
+  `other2` varchar(255) collate utf8_unicode_ci default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_map_po</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_map_po` VALUES ('1', 'vendorid', '', '', 'duedate', 'purchaseorder_no', 'billing_address', 'shipping_address', 'duedate', 'None', '', 'None', 'terms_conditions', 'description', 'None', 'None', 'None', '', 'None', 'None');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_vendor_setting</name>
+			<sql><![CDATA[CREATE TABLE `quickbooks_vendor_setting` (
+  `id` int(11) NOT NULL,
+  `vendor_name` varchar(50) collate utf8_unicode_ci default NULL,
+  `firstname` varchar(255) collate utf8_unicode_ci default NULL,
+  `lastname` varchar(255) collate utf8_unicode_ci default NULL,
+  `salutation` varchar(255) collate utf8_unicode_ci default NULL,
+  `company_name` varchar(50) collate utf8_unicode_ci default NULL,
+  `contact` varchar(50) collate utf8_unicode_ci default NULL,
+  `altcontact` varchar(255) collate utf8_unicode_ci default NULL,
+  `phone` varchar(50) collate utf8_unicode_ci default NULL,
+  `altphone` varchar(50) collate utf8_unicode_ci default NULL,
+  `fax` varchar(50) collate utf8_unicode_ci default NULL,
+  `email` varchar(50) collate utf8_unicode_ci default NULL,
+  `vendor_number` varchar(255) collate utf8_unicode_ci default NULL,
+  `description` varchar(255) collate utf8_unicode_ci default NULL,
+  `address` varchar(255) collate utf8_unicode_ci default 'bill',
+  `vendor_type` varchar(255) collate utf8_unicode_ci default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_vendor_setting</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_vendor_setting` VALUES ('1', 'vendorname', 'None', 'None', 'vendor_no', 'None', 'None', 'None', 'phone', 'otherphone', 'fax', 'email1', 'vendor_no', 'description', 'address', 'vendor_type');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_cf_qb_company</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `vtiger_cf_qb_company` (
+	  `cf_qb_companyid` int(19) NOT NULL auto_increment,
+	  `cf_qb_company` varchar(200) NOT NULL,
+	  `presence` int(1) NOT NULL default '1',
+	  `picklist_valueid` int(19) NOT NULL default '0',
+	  PRIMARY KEY  (`cf_qb_companyid`)
+	) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;]]></sql>
+		</table>
+		<table>
+			<name>vtiger_cf_qb_company_seq</name>
+			<sql><![CDATA[CREATE TABLE IF NOT EXISTS `vtiger_cf_qb_company_seq` (
+	  `id` int(11) NOT NULL
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8;]]></sql>
+		</table>
+		<table>
+			<name>vtiger_picklist</name>
+			<sql><![CDATA[INSERT INTO `vtiger_picklist` VALUES ('','cf_qb_company');]]></sql>
+		</table>
+		<table>
+			<name>boru_authorize_transactions</name>
+			<sql><![CDATA[
+		CREATE TABLE `boru_authorize_transactions` (
+		  `id` bigint(19) NOT NULL auto_increment,
+		  `timestamp` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+		  `x_response_code` int(3) default NULL,
+		  `x_response_reason_code` varchar(100) default NULL,
+		  `x_response_reason_text` text,
+		  `x_auth_code` varchar(10) default NULL,
+		  `x_avs_code` varchar(20) default NULL,
+		  `x_trans_id` varchar(100) default NULL,
+		  `x_invoice_id` varchar(100) default NULL,
+		  `x_invoice_num` varchar(20) default NULL,
+		  `x_description` varchar(255) default NULL,
+		  `x_amount` decimal(15,2) default NULL,
+		  `x_method` varchar(20) default NULL,
+		  `x_type` varchar(100) default NULL,
+		  `x_account_number` varchar(30) default NULL,
+		  `x_card_type` varchar(50) default NULL,
+		  `x_split_tender_id` varchar(100) default NULL,
+		  `x_prepaid_balance_on_card` decimal(15,2) default NULL,
+		  `x_cust_id` varchar(20) default NULL,
+		  `x_first_name` varchar(50) default NULL,
+		  `x_last_name` varchar(50) default NULL,
+		  `x_company` varchar(50) default NULL,
+		  `x_address` varchar(60) default NULL,
+		  `x_city` varchar(40) default NULL,
+		  `x_state` varchar(40) default NULL,
+		  `x_zip` varchar(20) default NULL,
+		  `x_country` varchar(60) default NULL,
+		  `x_phone` varchar(25) default NULL,
+		  `x_fax` varchar(25) default NULL,
+		  `x_email` varchar(255) default NULL,
+		  `x_ship_to_first_name` varchar(50) default NULL,
+		  `x_ship_to_last_name` varchar(50) default NULL,
+		  `x_ship_to_company` varchar(60) default NULL,
+		  `x_ship_to_address` varchar(60) default NULL,
+		  `x_ship_to_city` varchar(40) default NULL,
+		  `x_ship_to_state` varchar(40) default NULL,
+		  `x_ship_to_zip` varchar(20) default NULL,
+		  `x_ship_to_country` varchar(60) default NULL,
+		  `x_tax` decimal(15,2) default NULL,
+		  `x_duty` decimal(15,2) default NULL,
+		  `x_freight` decimal(15,2) default NULL,
+		  `x_tax_exempt` varchar(10) default NULL,
+		  `x_po_num` varchar(25) default NULL,
+		  `x_MD5_Hash` varchar(64) default NULL,
+		  `x_cvv2_resp_code` varchar(10) default NULL,
+		  `x_cavv_response` varchar(10) default NULL,
+		  `x_response_code_text` text,
+		  `x_response_reason_code_text` text,
+		  PRIMARY KEY  (`id`)
+		) ENGINE=InnoDB DEFAULT CHARSET=latin1
+	]]></sql>
+		</table>
+		<table>
+			<name>boru_authorize_transactions</name>
+			<sql><![CDATA[
+		ALTER TABLE `boru_authorize_transactions`
+		MODIFY COLUMN `x_invoice_id`  bigint(20) NULL DEFAULT NULL;
+	]]></sql>
+		</table>
+		<table>
+			<name>boru_authorize_transactions</name>
+			<sql><![CDATA[
+		ALTER TABLE `boru_authorize_transactions`
+		ADD COLUMN `payment_clearance_status`  varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+		ADD COLUMN `payment_cleared_datetime`  datetime NULL DEFAULT NULL,
+		ADD COLUMN `x_notes`  text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
+		ADD COLUMN `created_datetime`  datetime NULL DEFAULT NULL;
+	]]></sql>
+		</table>
+		<table>
+			<name>boru_authorize_transactions</name>
+			<sql><![CDATA[
+		ALTER TABLE `boru_authorize_transactions`
+		MODIFY COLUMN `timestamp`  timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+		MODIFY COLUMN `x_response_code_text`  text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
+		MODIFY COLUMN `x_response_reason_code_text`  text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
+		MODIFY COLUMN `created_datetime`  datetime NULL;
+	]]></sql>
+		</table>
+		<table>
+			<name>boru_authorize_transactions</name>
+			<sql><![CDATA[
+		ALTER TABLE `boru_authorize_transactions`
+		ADD COLUMN `modified_datetime`  datetime NULL DEFAULT NULL,
+		ADD COLUMN `qb_txnid`  varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+		ADD COLUMN `qb_paymentno`  varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+		ADD COLUMN `qb_paymentdate`  date NULL DEFAULT NULL,
+		ADD COLUMN `qb_account`  varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+		ADD COLUMN `qb_app_name`  varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+		ADD COLUMN `sync_to_qb`  tinyint(1) NULL DEFAULT 0,
+		ADD COLUMN `sent_to_qb`  tinyint(1) NULL DEFAULT 0,
+		ADD COLUMN `qb_editsequence`  varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+	]]></sql>
+		</table>
+		<table>
+			<name>vtiger_cf_qb_class</name>
+			<sql><![CDATA[
+		CREATE TABLE `vtiger_cf_qb_class` (
+		  `cf_qb_classid` int(19) NOT NULL auto_increment,
+		  `cf_qb_class` varchar(200) NOT NULL,
+		  `presence` int(1) NOT NULL default '1',
+		  `picklist_valueid` int(19) NOT NULL default '0',
+		  PRIMARY KEY  (`cf_qb_classid`)
+		) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+	]]></sql>
+		</table>
+		<table>
+			<name>vtiger_cf_qb_class_seq</name>
+			<sql><![CDATA[
+		CREATE TABLE `vtiger_cf_qb_class_seq` (
+		  `id` int(11) NOT NULL
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+	]]></sql>
+		</table>
+		<table>
+			<name>vtiger_picklist</name>
+			<sql><![CDATA[INSERT INTO `vtiger_picklist` VALUES ('','cf_qb_class');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_cf_qb_asset_account</name>
+			<sql><![CDATA[
+		CREATE TABLE `vtiger_cf_qb_asset_account` (
+		  `cf_qb_asset_accountid` int(19) NOT NULL auto_increment,
+		  `cf_qb_asset_account` varchar(200) NOT NULL,
+		  `presence` int(1) NOT NULL default '1',
+		  `picklist_valueid` int(19) NOT NULL default '0',
+		  PRIMARY KEY  (`cf_qb_asset_accountid`)
+		) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+	]]></sql>
+		</table>
+		<table>
+			<name>vtiger_cf_qb_asset_account_seq</name>
+			<sql><![CDATA[
+		CREATE TABLE `vtiger_cf_qb_asset_account_seq` (
+		  `id` int(11) NOT NULL
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+	]]></sql>
+		</table>
+		<table>
+			<name>vtiger_picklist</name>
+			<sql><![CDATA[INSERT INTO `vtiger_picklist` VALUES ('','cf_qb_asset_account');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_cf_qb_cogs_account</name>
+			<sql><![CDATA[
+		CREATE TABLE `vtiger_cf_qb_cogs_account` (
+		  `cf_qb_cogs_accountid` int(19) NOT NULL auto_increment,
+		  `cf_qb_cogs_account` varchar(200) NOT NULL,
+		  `presence` int(1) NOT NULL default '1',
+		  `picklist_valueid` int(19) NOT NULL default '0',
+		  PRIMARY KEY  (`cf_qb_cogs_accountid`)
+		) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+	]]></sql>
+		</table>
+		<table>
+			<name>vtiger_cf_qb_cogs_account_seq</name>
+			<sql><![CDATA[
+		CREATE TABLE `vtiger_cf_qb_cogs_account_seq` (
+		  `id` int(11) NOT NULL
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+	]]></sql>
+		</table>
+		<table>
+			<name>vtiger_picklist</name>
+			<sql><![CDATA[INSERT INTO `vtiger_picklist` VALUES ('','cf_qb_cogs_account');]]></sql>
+		</table>
+		<table>
+			<name>vtiger_productcf</name>
+			<sql><![CDATA[
+		ALTER TABLE `vtiger_productcf`
+		ADD COLUMN `cf_qb_cogs_account`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
+		ADD COLUMN `cf_qb_asset_account`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '';]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_modules</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_modules` (`module`, `qb`, `vt`) VALUES ('TrackingNumber', 0, 0);]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_modules</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_modules` (`module`, `qb`, `vt`) VALUES ('WebconnectorMonitor', 0, 0);]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_modules</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_modules` (`module`, `qb`, `vt`) VALUES ('ReceivePayments', 0, 0);]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_invoice_tracking</name>
+			<sql><![CDATA[
+		CREATE TABLE `quickbooks_invoice_tracking` (
+		  `id` int(19) NOT NULL auto_increment,
+		  `invoiceid` int(19) default '0',
+		  `productid` int(19) default NULL,
+		  `tracking_number` varchar(255) default NULL,
+		  `sequence_no` int(5) default NULL,
+		  `app_name` varchar(255) default NULL,
+		  `created_time` datetime default NULL,
+		  `modified_time` datetime default NULL,
+		  PRIMARY KEY  (`id`)
+		) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+	]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_modules</name>
+			<sql><![CDATA[ALTER TABLE `quickbooks_modules` MODIFY COLUMN `module`  varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL DEFAULT '' FIRST ;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_modules</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_modules` (`module`, `qb`, `vt`) VALUES ('LinkInvoiceViaRelatedList', '0', '0');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_modules</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_modules` (`module`, `qb`, `vt`) VALUES ('LinkQuotesViaRelatedList', '0', '0');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_modules</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_modules` (`module`, `qb`, `vt`) VALUES ('SyncMultiAddress', '0', '0');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_modules</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_modules` (`module`, `qb`, `vt`) VALUES ('CheckEditSequence', '0', '1');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapinvoice</name>
+			<sql><![CDATA[ALTER TABLE `quickbooks_mapinvoice` ADD COLUMN `ship_via`  varchar(255) NULL;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_map_po</name>
+			<sql><![CDATA[ALTER TABLE `quickbooks_map_po` ADD COLUMN `customer`  varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_product_service_mapping</name>
+			<sql><![CDATA[
+	INSERT INTO `quickbooks_product_service_mapping` (`name`, `account`, `item_type`) VALUES
+	('UpdateCustomerAddress', '2000-01-01', ''),
+	('UpdateInvoiceAddress', '2000-01-01', ''),
+	('UpdateEstimateAddress', '2000-01-01', '');
+	]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_update_address_setting</name>
+			<sql><![CDATA[
+			CREATE TABLE `quickbooks_update_address_setting` (
+		  `name` varchar(250) NOT NULL,
+		  `label` varchar(1000) default NULL,
+		  `enabled` varchar(2) default NULL,
+		  `field_mapping` varchar(1000) default NULL,
+		  `selected` tinyint(1) default '0',
+		  PRIMARY KEY  (`name`)
+		) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+		]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapsalesorder_sales_receipt</name>
+			<sql><![CDATA[
+			ALTER TABLE `quickbooks_mapsalesorder_sales_receipt`
+			ADD COLUMN `class`  varchar(255) NULL,
+			ADD COLUMN `payment_method`  varchar(255) NULL,
+			ADD COLUMN `rep`  varchar(255) NULL,
+			ADD COLUMN `ship_via`  varchar(255) NULL,
+			ADD COLUMN `fob`  varchar(255) NULL,
+			ADD COLUMN `other`  varchar(255) NULL;
+		]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapinvoice</name>
+			<sql><![CDATA[
+			ALTER TABLE `quickbooks_mapinvoice`
+			ADD COLUMN `fob`  varchar(255) NULL,
+			ADD COLUMN `other`  varchar(255) NULL;
+		]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_object_map</name>
+			<sql><![CDATA[
+			CREATE TABLE `quickbooks_object_map` (
+			  `module` varchar(255) NOT NULL,
+			  `qb_to_vt` varchar(255) default NULL,
+			  `vt_to_qb` varchar(255) default NULL,
+			  `description` text,
+			  PRIMARY KEY  (`module`)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+		]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_object_map</name>
+			<sql><![CDATA[
+			INSERT INTO `quickbooks_object_map` (`module`, `qb_to_vt`, `vt_to_qb`, `description`) VALUES 
+			('Estimate', 'Quotes', null, null),
+			('Invoice', 'Invoice', null, null),
+			('SalesOrder', 'SalesOrder', null, null),
+			('SalesReceipt', 'Quotes', null, null);
+		]]></sql>
+		</table>
+		<table>
+			<name>boru_authorize_transactions</name>
+			<sql><![CDATA[
+			ALTER TABLE `boru_authorize_transactions`
+			ADD COLUMN `currency`  tinyint(3) NULL DEFAULT 1;
+		]]></sql>
+		</table>
+		<table>
+			<name>vtiger_picklist_seq</name>
+			<sql><![CDATA[UPDATE vtiger_picklist_seq SET id = (SELECT MAX(picklistid) FROM vtiger_picklist);]]></sql>
+		</table>
+		<table>
+			<name>vtiger_field_seq</name>
+			<sql><![CDATA[UPDATE vtiger_field_seq SET id = (SELECT MAX(fieldid) FROM vtiger_field);]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_product_service_mapping</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_product_service_mapping` (`name`, `account`) VALUES ('SyncQBItem2VT', 'newly_modified');]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_vendor_mapping</name>
+			<sql><![CDATA[ALTER TABLE `quickbooks_vendor_mapping` MODIFY COLUMN `vendorid`  int(20) NOT NULL AUTO_INCREMENT FIRST ;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapinvoice</name>
+			<sql><![CDATA[ALTER TABLE `quickbooks_mapinvoice` ADD COLUMN `account`  varchar(255) NULL;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapinvoice</name>
+			<sql><![CDATA[ALTER TABLE `quickbooks_mapinvoice` ADD COLUMN `term`  varchar(255) NULL;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_mapinvoice</name>
+			<sql><![CDATA[ALTER TABLE `quickbooks_mapinvoice` ADD COLUMN `shipdate`  varchar(255) NULL;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_modules</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_modules` (`module`, `qb`, `vt`) VALUES ('InvCustomField', 0, 0);]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_custom_fields</name>
+			<sql><![CDATA[
+		CREATE TABLE `quickbooks_custom_fields` (
+		  `id` int(11) NOT NULL auto_increment,
+		  `assigntoobject` varchar(100) default NULL,
+		  `dataextname` varchar(255) default NULL,
+		  `app_name` varchar(50) default NULL,
+		  PRIMARY KEY  (`id`)
+		) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+	]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_custom_field_data</name>
+			<sql><![CDATA[
+		CREATE TABLE `quickbooks_custom_field_data` (
+		  `id` int(19) NOT NULL auto_increment,
+		  `crmid` int(19) default '0',
+		  `productid` int(19) default NULL,
+		  `custom_field` text,
+		  `txnlineid` varchar(100) default NULL,
+		  `sequence_no` int(5) default NULL,
+		  `app_name` varchar(255) default NULL,
+		  `setype` varchar(50) default NULL,
+		  `created_time` datetime default NULL,
+		  `modified_time` datetime default NULL,
+		  PRIMARY KEY  (`id`)
+		) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+	]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_customermap_contact</name>
+			<sql><![CDATA[ALTER TABLE `quickbooks_customermap_contact` ADD COLUMN `term`  varchar(255) NULL;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_customermap_account</name>
+			<sql><![CDATA[ALTER TABLE `quickbooks_customermap_account` ADD COLUMN `term`  varchar(255) NULL;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_modules</name>
+			<sql><![CDATA[INSERT INTO `quickbooks_modules` (`module`, `qb`, `vt`) VALUES ('LinkInvByJobField', 0, 0);]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_crm_map</name>
+			<sql><![CDATA[ALTER TABLE `quickbooks_crm_map` ADD COLUMN `qbjobid` varchar(50) NULL AFTER `modified_time`;]]></sql>
+		</table>
+		<table>
+			<name>quickbooks_customer_job</name>
+			<sql><![CDATA[ALTER TABLE `quickbooks_customer_job` ADD COLUMN `qb_editsequence` varchar(40) NULL AFTER `app_name`;]]></sql>
+		</table>
+	</tables>
+</schema>

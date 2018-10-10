@@ -1,0 +1,4 @@
+Options -Indexes
+<Files install.php>
+deny from all
+</Files>
